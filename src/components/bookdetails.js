@@ -44,10 +44,9 @@ const Bookdetails = ({book}) =>{
           }
         });
     
-        const json = await response.json();
-    
         if (response.ok) {
-          dispatch({ type: 'UPDATE_BOOK', payload: json });
+          const updatedBookData = { ...updatedBook, _id: book._id };
+          dispatch({ type: 'UPDATE_BOOK', payload: updatedBookData });
           setIsEditMode(false);
         }
       };
@@ -97,6 +96,7 @@ const Bookdetails = ({book}) =>{
               <p><strong>Edition: </strong>{book.Edition}</p>
               <p><strong>Language: </strong>{book.Language}</p>
               <hr />
+              <p>{formatDistanceToNow(new Date(book.createdAt), {addSuffix : true})}</p>
               <span className="material-symbols-outlined" onClick={handleDelete}>delete</span>
               <span className="material-symbols-outlined" onClick={handleEdit}>Edit</span>
             </>
